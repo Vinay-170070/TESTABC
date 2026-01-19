@@ -6,15 +6,18 @@ function SavingsPlan() {
   const [hourlyCommitment, setHourlyCommitment] = useState('');
   const [planPurchased, setPlanPurchased] = useState(false);
   const [planDetails, setPlanDetails] = useState(null);
+  const [error, setError] = useState('');
 
   const calculatePlan = () => {
     const usage = parseFloat(estimatedUsage);
     const commitment = parseFloat(hourlyCommitment);
     
     if (isNaN(usage) || isNaN(commitment) || usage <= 0 || commitment <= 0) {
-      alert('Please enter valid positive numbers');
+      setError('Please enter valid positive numbers');
       return;
     }
+    
+    setError('');
 
     const dailyCost = commitment * 24;
     const monthlyCost = dailyCost * 30;
@@ -44,6 +47,7 @@ function SavingsPlan() {
     setHourlyCommitment('');
     setPlanPurchased(false);
     setPlanDetails(null);
+    setError('');
   };
 
   return (
@@ -52,6 +56,7 @@ function SavingsPlan() {
       
       {!planPurchased ? (
         <div className="plan-form">
+          {error && <div className="error-message">{error}</div>}
           <div className="form-group">
             <label htmlFor="estimatedUsage">
               Estimated Usage ($/hour):
