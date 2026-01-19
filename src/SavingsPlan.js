@@ -20,7 +20,7 @@ function SavingsPlan() {
     setError('');
 
     const dailyCost = commitment * 24;
-    const monthlyCost = dailyCost * 30;
+    const monthlyCost = dailyCost * 30.44; // Average days per month (365.25/12)
     const yearlyCost = monthlyCost * 12;
     const savings = usage > commitment ? ((usage - commitment) / usage * 100).toFixed(2) : 0;
 
